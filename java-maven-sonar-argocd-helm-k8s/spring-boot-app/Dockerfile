@@ -11,14 +11,15 @@
 
 # # This should not be changed
 # ENTRYPOINT ["java","-jar","app.jar"]
-# Use a base image with the Java runtime environment
-FROM adoptopenjdk/openjdk11:alpine-jre
+
+# Use the arm64v8/openjdk:11-jre-slim base image
+FROM arm64v8/openjdk:11-jre-slim
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the compiled Java application JAR file into the container
-COPY target/my-java-app.jar /app/my-java-app.jar
+# Copy the Java application JAR file into the container
+COPY target/spring-boot-web.jar app.jar
 
-# Define the command to run the Java application when the container starts
-CMD ["java", "-jar", "my-java-app.jar"]
+# Define the command to run the Java application
+CMD ["java", "-jar", "app.jar"]
